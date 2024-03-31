@@ -6,3 +6,5 @@ Sure, we can go to the apps and see what is newly being listed. A 3 bed / 2 bath
 This would not be possible without [HomeHarvest](https://github.com/Bunsly/HomeHarvest/tree/master), a real estate scraping tool that grabs listings from [Realtor.com](https://realtor.com). **HomeHarvest** provides two ways to get listings: a Python library or their site **tryhomeharvest.com**. In this project, we'll use the Python library as a way to document our steps with code.
 
 The logistics of this project take some twists and turns, especially since there will be an initial batch along with continuous batches of data. but careful documentation and description of each step will help you follow along.
+
+### 1. Project Architecture
