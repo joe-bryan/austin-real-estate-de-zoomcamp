@@ -7,4 +7,5 @@ This would not be possible without [HomeHarvest](https://github.com/Bunsly/HomeH
 
 The logistics of this project take some twists and turns, especially since there will be an initial batch along with continuous batches of data. but careful documentation and description of each step will help you follow along.
 
-### 1. Project Architecture
+### 1. Tech Stack
+This is a quick snapshot of the technologies used to make this data engineering pipeline possible.
