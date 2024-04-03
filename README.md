@@ -12,8 +12,12 @@ This is a quick snapshot of the technologies used to make this data engineering 
 
 ### 2. Project Configuration
 
-To reproduce this project, a Google Cloud account is needed. 
+To reproduce this project, a [Google Cloud](https://www.cloud.google.com) account is needed. The steps below highlight what is needed. Side note, this project can also be run locally, but I have not fully tested it. 
 
 * If you don't have an account, create an account with your Google email.
-* Setup a project with an appropriate name. E.g., "austin-real-estate" and save the Project ID as it will be used later on in various resources.
-* 
+* Create a project with an appropriate name, e.g., "austin-real-estate", and save the Project ID as it will be used later in various resources.
+* Follow the instructions in this article called, ["Setting up the development environment on Google Virtual Machine"](https://itsadityagupta.hashnode.dev/setting-up-the-development-environment-on-google-virtual-machine) by Aditya Gupta to get a virtual machine ready. You can skip the sections: ```Installing Pgcli```, ```Installiing Pyspark```, and ```Cloning the course repo```.
+
+#### A. Terraform
+
+
