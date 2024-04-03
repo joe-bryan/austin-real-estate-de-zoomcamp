@@ -9,3 +9,5 @@ The logistics of this project take some twists and turns, especially since there
 
 ### 1. Tech Stack
 This is a quick snapshot of the technologies used to make this data engineering pipeline possible.
+
+### 2. Project Configuration
