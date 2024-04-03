@@ -11,3 +11,9 @@ The logistics of this project take some twists and turns, especially since there
 This is a quick snapshot of the technologies used to make this data engineering pipeline possible.
 
 ### 2. Project Configuration
+
+To reproduce this project, a Google Cloud account is needed. 
+
+* If you don't have an account, create an account with your Google email.
+* Setup a project with an appropriate name. E.g., "austin-real-estate" and save the Project ID as it will be used later on in various resources.
+* 
