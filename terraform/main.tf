@@ -17,8 +17,9 @@ provider "google" {
 # Data Lake Bucket
 # Ref: https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/storage_bucket
 resource "google_storage_bucket" "data-lake-bucket" {
-  name          = "${local.data_lake_bucket}_${var.project}" # Concatenating DL bucket & Project name for unique naming
+  name          = var.gcs_bucket_name
   location      = var.region
+  force_destroy = true
 
   # Optional, but recommended settings:
   storage_class = var.storage_class
@@ -36,14 +37,12 @@ resource "google_storage_bucket" "data-lake-bucket" {
       age = 30  // days
     }
   }
-
-  force_destroy = true
 }
 
 # DWH
 # Ref: https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/bigquery_dataset
-resource "google_bigquery_dataset" "dataset" {
-  dataset_id = var.BQ_DATASET
+resource "google_bigquery_dataset" "demo_dataset" {
+  dataset_id = var.bq_dataset_name
   project    = var.project
   location   = var.region
 }
