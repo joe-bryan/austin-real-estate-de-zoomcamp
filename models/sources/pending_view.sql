@@ -34,7 +34,7 @@ with source_pending as (
         , alt_photos
         , timestamp
 
-    from {{ source('austin_listings', 'pending') }}
+    from {{ source('sources', 'pending') }}
 )
 
 select 
