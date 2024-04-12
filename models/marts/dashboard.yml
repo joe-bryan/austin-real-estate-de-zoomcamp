@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: austin_for_sale_and_pending
+    description: >
+      Denormalized table of all listings for sale and pending
+    columns:
+      - name: mls_id
+        tests:
+          - not_null
+      - name: status
+        tests:
+          - accepted_values:
+              values: ['FOR_SALE', 'PENDING']
