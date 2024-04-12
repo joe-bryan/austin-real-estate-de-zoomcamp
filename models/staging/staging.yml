@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: staging_listings
+    columns:
+      - name: mls_id
+        tests:
+          - not_null
+      - name: status
+        tests:
+          - accepted_values:
+              values: ['FOR_SALE']
+
+  - name: staging_pending
+    columns:
+      - name: mls_id
+        tests:
+          - not_null
+      - name: status
+        tests:
+          - accepted_values:
+              values: ['PENDING']
