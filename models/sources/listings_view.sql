@@ -1,6 +1,6 @@
 {{ config(materialized='view') }}
 
-with source_listings as (
+with forsaledata as (
 
     select
         property_url
@@ -34,10 +34,11 @@ with source_listings as (
         , alt_photos
         , timestamp
 
-    from {{ source('austin_listings', 'listings') }}
+    from {{ source('sources', 'listings') }}
+
 )
 
 select 
     *
 from 
-    source_listings
+    forsaledata

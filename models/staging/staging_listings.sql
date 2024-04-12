@@ -7,16 +7,21 @@ with source as (
 
 ),
 
-source_decade as (
-
-    select
-       CONCAT(SUBSTRING(CAST(source.year_built AS STRING), 1, 3), "0s") AS decade_built
-       , CAST(style AS STRING) as style
-       , zip_code
-       , year_built
-    from source
-
+decade as (
+    select *
+    from {{ ref('staging_decade') }}
 ),
+
+-- source_decade as (
+
+--     select
+--        CONCAT(SUBSTRING(CAST(source.year_built AS STRING), 1, 3), "0s") AS decade_built
+--        , CAST(style AS STRING) as style
+--        , zip_code
+--        , year_built
+--     from source
+
+-- ),
 
 avg_price_all as (
 
@@ -104,7 +109,7 @@ cte as (
         , source.half_baths
         , source.sqft
         , CAST(source.year_built AS STRING) as year_built
-        , source_decade.decade_built
+        , decade.decade_built
         , source.days_on_mls
         , CASE
             WHEN source.days_on_mls <= 7 THEN 'new'
@@ -137,10 +142,10 @@ cte as (
         , CAST(source.timestamp AS TIMESTAMP) AS timestamp
 
     from source
-    JOIN source_decade
-    ON source.year_built=source_decade.year_built
-    AND source.style=source_decade.style
-    AND source.zip_code=source_decade.zip_code
+    JOIN decade
+    ON decade.year_built=source_decade.year_built
+    AND decade.style=source_decade.style
+    AND decade.zip_code=source_decade.zip_code
     JOIN avg_price_all
     ON source.zip_code=avg_price_all.zip_code
     AND source.style=avg_price_all.style

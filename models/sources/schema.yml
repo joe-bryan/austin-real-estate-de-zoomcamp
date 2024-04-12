@@ -1,0 +1,33 @@
+
+version: 2
+
+sources:
+  - name: sources
+    database: austin-real-estate-de-project
+    schema: austin_new_listings
+    description: >
+      "Data from HomeHarvest that is batched in hourly"
+    tables:
+
+      - name: listings
+        columns:
+          - name: mls_id
+            description: "The primary key for this table"
+
+      - name: pending
+        columns:
+          - name: mls_id
+            description: "The primary key for this table"
+
+models:
+    - name: listings_view
+      description: >
+        Trip made by green taxis, also known as boro taxis and street-hail liveries.
+        Green taxis may respond to street hails,but only in the areas indicated in green on the
+        map (i.e. above W 110 St/E 96th St in Manhattan and in the boroughs).
+        The records were collected and provided to the NYC Taxi and Limousine Commission (TLC) by
+        technology service providers. 
+
+    - name: pending_view
+      description: >
+        Etc
