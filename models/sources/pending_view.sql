@@ -1,7 +1,7 @@
-{{ config(materialized='view') }}
+{{ config(materialized='view')}}
 
-with source_pending as (
-
+with pendingdata as (
+    
     select
         property_url
         , mls
@@ -33,11 +33,10 @@ with source_pending as (
         , primary_photo
         , alt_photos
         , timestamp
+    
+    from {{ source('sources', 'pending')}}
 
-    from {{ source('sources', 'pending') }}
 )
 
-select 
-    *
-from
-    source_pending
+select *
+from pendingdata
