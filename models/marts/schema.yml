@@ -12,3 +12,4 @@ models:
         tests:
           - accepted_values:
               values: ['FOR_SALE', 'PENDING']
+
