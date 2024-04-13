@@ -119,9 +119,13 @@ cte as (
     ON decade.decade_built=avg_price_decade_zipcode.decade_built
     AND decade.style=avg_price_decade_zipcode.style
     AND decade.zip_code=avg_price_decade_zipcode.zip_code
+),
+
+unique_cte as (
+
+    select DISTINCT *
+    from cte
 )
 
-select 
-    *
-from 
-    cte
+select *
+from unique_cte

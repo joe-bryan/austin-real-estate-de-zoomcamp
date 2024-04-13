@@ -100,28 +100,32 @@ cte as (
         , CAST(source.timestamp AS TIMESTAMP) AS timestamp
 
     from source
-    JOIN decade
+    LEFT JOIN decade
     ON source.year_built=decade.year_built
     AND source.style=decade.style
     AND source.zip_code=decade.zip_code
-    JOIN avg_price_all
+    LEFT JOIN avg_price_all
     ON source.zip_code=avg_price_all.zip_code
     AND source.style=avg_price_all.style
-    JOIN listings_zipcode
+    LEFT JOIN listings_zipcode
     ON source.zip_code=listings_zipcode.zip_code
-    JOIN listings_zipcode_style
+    LEFT JOIN listings_zipcode_style
     ON source.zip_code=listings_zipcode_style.zip_code
     AND source.style=listings_zipcode_style.style
-    JOIN avg_price_decade
+    LEFT JOIN avg_price_decade
     ON decade.decade_built=avg_price_decade.decade_built
     AND decade.style=avg_price_decade.style
-    JOIN avg_price_decade_zipcode
+    LEFT JOIN avg_price_decade_zipcode
     ON decade.decade_built=avg_price_decade_zipcode.decade_built
     AND decade.style=avg_price_decade_zipcode.style
     AND decade.zip_code=avg_price_decade_zipcode.zip_code
+),
+
+unique_cte as (
+
+    select DISTINCT *
+    from cte
 )
 
-select 
-    *
-from 
-    cte
+select *
+from unique_cte

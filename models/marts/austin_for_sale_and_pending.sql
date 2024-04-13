@@ -13,7 +13,7 @@ pending as (
     from {{ ref('staging_pending')}}
 
 )
-
+    
 select *
 from for_sale
 UNION DISTINCT
