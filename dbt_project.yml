@@ -38,5 +38,5 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   dbt_austin_real_estate:
     # Applies to all files under models/example/
-    example:
-      +materialized: view
+    # example:
+    #   +materialized: view
