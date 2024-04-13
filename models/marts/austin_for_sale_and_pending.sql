@@ -16,7 +16,7 @@ pending as (
 
 select *
 from for_sale
-UNION ALL
+UNION DISTINCT
 select * 
 from pending
 ORDER BY list_date DESC
