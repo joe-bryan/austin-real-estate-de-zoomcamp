@@ -7,7 +7,7 @@ with cte as (
        , CAST(style AS STRING) as style
        , zip_code
        , year_built
-    from {{ source('sources', 'listings')}}
+    from {{ source('sources', 'pending')}}
 
 )
 

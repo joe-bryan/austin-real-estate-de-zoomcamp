@@ -20,3 +20,5 @@ models:
         tests:
           - accepted_values:
               values: ['PENDING']
+  
+  - name: staging_decade

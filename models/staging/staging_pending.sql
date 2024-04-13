@@ -1,87 +1,50 @@
-{{ config(materialized='view') }}
+{{ config(materialized='view')}}
 
 with source as (
     
     select *
-    from {{ source('sources', 'pending') }}
+    from {{ source('sources', 'pending')}}
 
 ),
 
-source_decade as (
-
-    select
-       CONCAT(SUBSTRING(CAST(source.year_built AS STRING), 1, 3), "0s") AS decade_built
-       , CAST(style AS STRING) as style
-       , zip_code
-       , year_built
-    from source
+decade as (
+    
+    select *
+    from {{ ref('staging_decade_pending')}}
 
 ),
 
 avg_price_all as (
-
-    select
-        ROUND(AVG(list_price), 0) AS avg_price_by_zipcode_by_style
-        , zip_code
-        , CAST(style AS STRING) as style
-    from {{ source('sources', 'pending') }}
-    GROUP BY 
-        zip_code
-        , style
+    
+    select *
+    from {{ ref('staging_avg_price_pending')}}
 
 ),
 
 avg_price_decade as (
-
-    select
-        ROUND(AVG(list_price), 0) AS avg_price_by_decade_by_style
-        , CAST(style AS STRING) as style
-        , CONCAT(SUBSTRING(CAST(year_built AS STRING), 1, 3), "0s") AS decade_built
-    from {{ source('sources', 'pending') }}
-    GROUP BY 
-        decade_built
-        , style
+    
+    select *
+    from {{ ref('staging_avg_price_decade_pending')}}
 
 ),
 
-avg_price_decade_by_zipcode as (
-
-    select
-        ROUND(AVG(list_price), 0) AS avg_price_by_decade_by_style_by_zipcode
-        , CAST(style AS STRING) as style
-        , CONCAT(SUBSTRING(CAST(year_built AS STRING), 1, 3), "0s") AS decade_built
-        , zip_code
-    from {{ source('sources', 'pending') }}
-    GROUP BY 
-        decade_built
-        , style
-        , zip_code
+avg_price_decade_zipcode as (
+    
+    select *
+    from {{ ref('staging_avg_price_decade_zipcode_pending')}}
 
 ),
 
 listings_zipcode as (
     
-    select
-        zip_code
-        , COUNT(zip_code) as listings_per_zipcode
-    from {{ source('sources', 'pending') }}
-    GROUP BY 
-        zip_code
+    select *
+    from {{ ref('staging_listings_zipcode_pending')}}
 
 ),
 
-listings_zipcode_by_style as (
-    
-    select
-        zip_code
-        , CAST(style AS STRING) as style
-        , COUNT(zip_code) as listings_by_zipcode_by_style
-        
-    from {{ source('sources', 'pending') }}
-    GROUP BY 
-        zip_code
-        , style
-
+listings_zipcode_style as (
+    select *
+    from {{ ref('staging_listings_zipcode_style_pending')}}
 ),
 
 cte as (
@@ -98,13 +61,13 @@ cte as (
         , source.state
         , source.zip_code
         , listings_zipcode.listings_per_zipcode
-        , listings_zipcode_by_style.listings_by_zipcode_by_style
+        , listings_zipcode_style.listings_by_zipcode_by_style
         , source.beds
         , source.full_baths
         , source.half_baths
         , source.sqft
         , CAST(source.year_built AS STRING) as year_built
-        , source_decade.decade_built
+        , decade.decade_built
         , source.days_on_mls
         , CASE
             WHEN source.days_on_mls <= 7 THEN 'new'
@@ -122,7 +85,7 @@ cte as (
             ELSE 'equal'
           END AS more_or_less_than_avg
         , avg_price_decade.avg_price_by_decade_by_style
-        , avg_price_decade_by_zipcode.avg_price_by_decade_by_style_by_zipcode
+        , avg_price_decade_zipcode.avg_price_by_decade_by_style_by_zipcode
         , CAST(source.list_date AS DATE) AS list_date
         , CAST(source.last_sold_date AS DATE) AS last_sold_date
         , source.lot_sqft
@@ -137,25 +100,25 @@ cte as (
         , CAST(source.timestamp AS TIMESTAMP) AS timestamp
 
     from source
-    JOIN source_decade
-    ON source.year_built=source_decade.year_built
-    AND source.style=source_decade.style
-    AND source.zip_code=source_decade.zip_code
+    JOIN decade
+    ON source.year_built=decade.year_built
+    AND source.style=decade.style
+    AND source.zip_code=decade.zip_code
     JOIN avg_price_all
     ON source.zip_code=avg_price_all.zip_code
     AND source.style=avg_price_all.style
     JOIN listings_zipcode
     ON source.zip_code=listings_zipcode.zip_code
-    JOIN listings_zipcode_by_style
-    ON source.zip_code=listings_zipcode_by_style.zip_code
-    AND source.style=listings_zipcode_by_style.style
+    JOIN listings_zipcode_style
+    ON source.zip_code=listings_zipcode_style.zip_code
+    AND source.style=listings_zipcode_style.style
     JOIN avg_price_decade
-    ON source_decade.decade_built=avg_price_decade.decade_built
-    AND source_decade.style=avg_price_decade.style
-    JOIN avg_price_decade_by_zipcode
-    ON source_decade.decade_built=avg_price_decade_by_zipcode.decade_built
-    AND source_decade.style=avg_price_decade_by_zipcode.style
-    AND source_decade.zip_code=avg_price_decade_by_zipcode.zip_code
+    ON decade.decade_built=avg_price_decade.decade_built
+    AND decade.style=avg_price_decade.style
+    JOIN avg_price_decade_zipcode
+    ON decade.decade_built=avg_price_decade_zipcode.decade_built
+    AND decade.style=avg_price_decade_zipcode.style
+    AND decade.zip_code=avg_price_decade_zipcode.zip_code
 )
 
 select 
