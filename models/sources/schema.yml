@@ -22,12 +22,138 @@ sources:
 models:
     - name: listings_view
       description: >
-        Trip made by green taxis, also known as boro taxis and street-hail liveries.
-        Green taxis may respond to street hails,but only in the areas indicated in green on the
-        map (i.e. above W 110 St/E 96th St in Manhattan and in the boroughs).
-        The records were collected and provided to the NYC Taxi and Limousine Commission (TLC) by
-        technology service providers. 
+        HomeHarvest is a real estate scraper that gets listings data from Realtor.com. The data 
+        is of listings for sale in the Austin, TX area. If its for sale in the area, the data is here.
+        The listing can come from multiple MLS groups.
+      columns:
+        - name: property_url
+          description: The url of the listing on Realtor.com.
+        - name: mls
+          description: The multiple listing network that is listing the home.
+        - name: mls_id
+          description: The id in the mls group the listings belongs to.
+        - name: status
+          description: Whether the home is for sale, pending, or sold.
+        - name: style
+          description: The style of the listing. For example, single-family, condo, etc.                                   
+        - name: street
+          description: The street of where the listing is.
+        - name: unit
+          description: The unit information if the listing has one.
+        - name: city
+          description: The city of the listing.
+        - name: state
+          description: The state of the listing.
+        - name: zip_code
+          description: The zipcode of the listing.
+        - name: beds
+          description: How many beds the listing has.
+        - name: full_baths
+          description: The number of full baths the listing has.
+        - name: half_baths
+          description: The number of half baths the listing has
+        - name: sqft
+          description: The square feet of the listing.
+        - name: year_built
+          description: When the home was built.
+        - name: days_on_mls
+          description: The number of days the listing has been on Realtor.com
+        - name: list_price
+          description: The listed price.
+        - name: list_date
+          description: The date of when it was listed.          
+        - name: property_url
+          description: The url of the listing on Realtor.com
+        - name: sold_price
+          description: The price of when it was sold. Since these two tables do not have sold listings, this column will be removed in staging.
+        - name: last_sold_date
+          description: The date of the last time the home was sold. Sometimes this is provided.
+        - name: lot_sqft
+          description: The lot square feet of the listing.
+        - name: price_per_sqft
+          description: The price divided by the square feet of the listing.
+        - name: latitude
+          description: The latitude coordinate of the listing.
+        - name: longitude
+          description: The longitude coordinate of the listing.
+        - name: stories
+          description: The number of stories if provided.
+        - name: hoa_fee
+          description: The HOA fee if it has one.    
+        - name: parking_garage
+          description: The number of parking spots provided.
+        - name: primary_photo
+          description: The url of the primary photo for the listing on Realtor.com.
+        - name: alt_photos
+          description: Urls of other photos of the listing on Realtor.com.
+        - name: timestamp
+          description: A timestamp of when the listing was captured.
 
+                           
     - name: pending_view
       description: >
-        Etc
+        HomeHarvest is a real estate scraper that gets listings data from Realtor.com. The data 
+        is of pending listings in the Austin, TX area. The listing can come from multiple MLS groups.
+      columns:
+        - name: property_url
+          description: The url of the listing on Realtor.com.
+        - name: mls
+          description: The multiple listing network that is listing the home.
+        - name: mls_id
+          description: The id in the mls group the listings belongs to.
+        - name: status
+          description: Whether the home is for sale, pending, or sold.
+        - name: style
+          description: The style of the listing. For example, single-family, condo, etc.                                   
+        - name: street
+          description: The street of where the listing is.
+        - name: unit
+          description: The unit information if the listing has one.
+        - name: city
+          description: The city of the listing.
+        - name: state
+          description: The state of the listing.
+        - name: zip_code
+          description: The zipcode of the listing.
+        - name: beds
+          description: How many beds the listing has.
+        - name: full_baths
+          description: The number of full baths the listing has.
+        - name: half_baths
+          description: The number of half baths the listing has
+        - name: sqft
+          description: The square feet of the listing.
+        - name: year_built
+          description: When the home was built.
+        - name: days_on_mls
+          description: The number of days the listing has been on Realtor.com
+        - name: list_price
+          description: The listed price.
+        - name: list_date
+          description: The date of when it was listed.          
+        - name: property_url
+          description: The url of the listing on Realtor.com
+        - name: sold_price
+          description: The price of when it was sold. Since these two tables do not have sold listings, this column will be removed in staging.
+        - name: last_sold_date
+          description: The date of the last time the home was sold. Sometimes this is provided.
+        - name: lot_sqft
+          description: The lot square feet of the listing.
+        - name: price_per_sqft
+          description: The price divided by the square feet of the listing.
+        - name: latitude
+          description: The latitude coordinate of the listing.
+        - name: longitude
+          description: The longitude coordinate of the listing.
+        - name: stories
+          description: The number of stories if provided.
+        - name: hoa_fee
+          description: The HOA fee if it has one.    
+        - name: parking_garage
+          description: The number of parking spots provided.
+        - name: primary_photo
+          description: The url of the primary photo for the listing on Realtor.com.
+        - name: alt_photos
+          description: Urls of other photos of the listing on Realtor.com.
+        - name: timestamp
+          description: A timestamp of when the listing was captured.
