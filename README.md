@@ -247,6 +247,11 @@ A service account within Big Query needs to be created to enable communication w
 * Press Initialize dbt project as that will create the folder structure.
 * Make an initial commit by clicking Commit and sync. It will prompt you to create a new branch. You can use the commit message "initial commit" and click Commit.
 
+Below is the dbt lineage
+
+<img width="937" alt="dbt_lineage" src="https://github.com/joe-bryan/austin-real-estate-de-zoomcamp/assets/101160575/c220b82b-8c89-40f2-9aec-321dd54dbb6d">
+
+
 Now we can get to work on a crucial dbt file: ```dbt_project.yml``` 
 
 ```dbt_project.yml``` has some basic information about the dbt project plus some options that can be made. We will stick to the defaults, but make sure that name matches what goes under models.
