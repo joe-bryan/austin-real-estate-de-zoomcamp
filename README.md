@@ -10,7 +10,7 @@ The logistics of this project take some twists and turns, especially since there
 ### 1. Tech Stack
 This is a quick snapshot of the technologies used to make this data engineering pipeline possible.
 
-
+<img src="https://github.com/joe-bryan/austin-real-estate-de-zoomcamp/assets/101160575/3e60958d-523e-485c-ad41-57206b745f21" width="650">
 
 
 ### 2. Project Configuration
@@ -202,9 +202,13 @@ There are two pipelines that are run in Mage:
 
 The hourly_listings pipeline runs every hour and brings in the all the for sale listings. It saves the listings to ***all_listings.parquet*** to have a file that has the latest data, and also saves to GCS in this manner: ```%Y-%m-%d/%H:%M/for_sale_listings.parquet``` to keep a record of the listings each hour. The listings that hour are also pushed to the BigQuery table ```listings```. Here is the tree diagram to organize files and connect them correctly.
 
+<img width="650" alt="hourly_listings_tree" src="https://github.com/joe-bryan/austin-real-estate-de-zoomcamp/assets/101160575/70c0bfea-620f-4c88-8b97-a387289550fc">
 
 
 The hourly_pendings pipeline runs every hour and brings in the all the pending listings. It saves the pending listings to ***all_pending.parquet*** to have a file that has the latest data, and also saves to GCS in this manner: ```%Y-%m-%d/%H:%M/pending_listings.parquet``` to keep a record of the pending listings each hour. The pending listings that hour are also pushed to the BigQuery table ```pending```. Here is the tree diagram to organize files and connect them correctly.
+
+<img width="650" alt="hourly_pendings_tree" src="https://github.com/joe-bryan/austin-real-estate-de-zoomcamp/assets/101160575/0866a680-a4ae-452d-8d0f-c64df4cfab0b">
+
 
 What makes an orchestrator special is its ability to schedule scripts. In our case, these two pipelines will be on a schedule to run every hour. To check if a pipeline has a schedule, click on Pipelines on the left sided menu. On the screen, the first column says Status and next to it is the name of the pipeline. If it says ```active``` in the Status column, that means the schedule is turned on. If it doesn't you can click on a pipeline. Then on the left sided menu, click Triggers. If a schedule doensn't show, select the ```+ New trigger``` button to create one. There are two choices if you want to run this hourly. On the Frequency selection, you can pick hourly or custom. I selected custom to set it using Cron. My Cron schedule is ```55 * * * *``` so that is runs at 55 minutes past the hour every hour. Make sure both pipelines have schedules and are running every hour.
 
@@ -798,5 +802,8 @@ The dashboard brings a live-like experience of the listings currently in the Aus
 * Being able to search listings by decade built
 * Being able to search by how long the listing has been on the market?
 * Being able to search by whether a listing is more or less than the average price in the same zipcode and style
+
+<img width="917" alt="jba_dashboard" src="https://github.com/joe-bryan/austin-real-estate-de-zoomcamp/assets/101160575/398a65c0-515b-4c95-9164-b4fa549aad12">
+
 
 Link to the dashboard: [Austin Real Estate Listings](https://public.tableau.com/app/profile/joe.alanis/viz/AustinRealEstate_17130461839520/Listings?publish=yes)
