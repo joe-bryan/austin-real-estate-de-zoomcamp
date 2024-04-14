@@ -212,6 +212,9 @@ The hourly_pendings pipeline runs every hour and brings in the all the pending l
 
 What makes an orchestrator special is its ability to schedule scripts. In our case, these two pipelines will be on a schedule to run every hour. To check if a pipeline has a schedule, click on Pipelines on the left sided menu. On the screen, the first column says Status and next to it is the name of the pipeline. If it says ```active``` in the Status column, that means the schedule is turned on. If it doesn't you can click on a pipeline. Then on the left sided menu, click Triggers. If a schedule doensn't show, select the ```+ New trigger``` button to create one. There are two choices if you want to run this hourly. On the Frequency selection, you can pick hourly or custom. I selected custom to set it using Cron. My Cron schedule is ```55 * * * *``` so that is runs at 55 minutes past the hour every hour. Make sure both pipelines have schedules and are running every hour.
 
+<img width="650" alt="mage_triggers" src="https://github.com/joe-bryan/austin-real-estate-de-zoomcamp/assets/101160575/17794881-369a-4079-b411-ea69d7d48ae3">
+
+
 
 ### 4. Data Transformation
 
