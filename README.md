@@ -5,8 +5,6 @@ Sure, we can go to the apps and see what is newly being listed. A 3 bed / 2 bath
 
 This would not be possible without [HomeHarvest](https://github.com/Bunsly/HomeHarvest/tree/master), a real estate scraping tool that grabs listings from [Realtor.com](https://realtor.com). **HomeHarvest** provides two ways to get listings: a Python library or their site **tryhomeharvest.com**. In this project, we'll use the Python library as a way to document our steps with code.
 
-The logistics of this project take some twists and turns, especially since there will be an initial batch along with continuous batches of data. but careful documentation and description of each step will help you follow along.
-
 ### 1. Tech Stack
 This is a quick snapshot of the technologies used to make this data engineering pipeline possible.
 
@@ -19,7 +17,7 @@ To reproduce this project, a [Google Cloud](https://www.cloud.google.com) accoun
 
 * If you don't have an account, create an account with your Google email.
 * Create a project with an appropriate name, e.g., "austin-real-estate", and save the Project ID as it will be used later in various resources.
-* Follow the instructions in this article called, ["Setting up the development environment on Google Virtual Machine"](https://itsadityagupta.hashnode.dev/setting-up-the-development-environment-on-google-virtual-machine) by Aditya Gupta to get a virtual machine ready. You can skip the sections: ```Installing Pgcli```, ```Installiing Pyspark```, and ```Cloning the course repo```.
+* Follow the instructions in this article called, ["Setting up the development environment on Google Virtual Machine"](https://itsadityagupta.hashnode.dev/setting-up-the-development-environment-on-google-virtual-machine) by Aditya Gupta to get a virtual machine ready. You can skip the sections: ```Installing Pgcli```, ```Installing Pyspark```, and ```Cloning the course repo```.
 
 #### A. Clone the Repo
 
@@ -184,14 +182,13 @@ Now that Mage is up and running, we have to copy our Google service account key 
 
 We ensure that Mage has the HomeHarvest library needed to get the listings. On the left sided menu, select the Terminal and run this code ```pip install homeharvest```. Later on, if running the script gives an error about updating dask, copy the pip install code and open up the Mage terminal and paste it there.
 
-In the repository, the folders ```data_loaders``` ```data_exporters``` and ```transformers``` hold the scripts to the pipelines in Mage. Data loader scripts load data, transformers clean up the data, and data exporters push the data out.
+In the repository, the folders ```data_loaders``` and ```data_exporters```  hold the scripts to the pipelines in Mage. Data loader scripts load data and data exporters push the data out.
 
 You can copy the scripts over to the project folders within Mage by:
 
 * Go to the terminal in Mage
-* run ```cp data_loaders/script_name aus-new-listings/data_loaders/script_name``` for the data_loader files
-* run ```cp transformers/script_name aus-new-listings/transformers/script_name``` for the transformers files
-* run ```cp data_exporters/script_name aus-new-listings/data_exporters/script_name``` for the data_exporters files
+* run ```cp data_loaders/script_name austin-new-listings/data_loaders/script_name``` for each of the data_loader files
+* run ```cp data_exporters/script_name austin-new-listings/data_exporters/script_name``` for each of the data_exporters files
 
 Now the files are within Mage and can be used in pipelines
 
@@ -200,12 +197,12 @@ There are two pipelines that are run in Mage:
 * hourly_listings
 * hourly_pendings
 
-The hourly_listings pipeline runs every hour and brings in the all the for sale listings. It saves the listings to ***all_listings.parquet*** to have a file that has the latest data, and also saves to GCS in this manner: ```%Y-%m-%d/%H:%M/for_sale_listings.parquet``` to keep a record of the listings each hour. The listings that hour are also pushed to the BigQuery table ```listings```. Here is the tree diagram to organize files and connect them correctly.
+The hourly_listings pipeline runs every hour and brings in the all the for sale listings. It saves the listings to ***all_listings.parquet*** to have a file in GCS that has the latest data, and also saves to GCS in this manner: ```%Y-%m-%d/%H:%M/for_sale_listings.parquet``` to keep a record of the listings each hour. The listings that hour are also pushed to the BigQuery table ```listings```. Here is the tree diagram to organize files and connect them correctly.
 
 <img width="650" alt="hourly_listings_tree" src="https://github.com/joe-bryan/austin-real-estate-de-zoomcamp/assets/101160575/70c0bfea-620f-4c88-8b97-a387289550fc">
 
 
-The hourly_pendings pipeline runs every hour and brings in the all the pending listings. It saves the pending listings to ***all_pending.parquet*** to have a file that has the latest data, and also saves to GCS in this manner: ```%Y-%m-%d/%H:%M/pending_listings.parquet``` to keep a record of the pending listings each hour. The pending listings that hour are also pushed to the BigQuery table ```pending```. Here is the tree diagram to organize files and connect them correctly.
+The hourly_pendings pipeline runs every hour and brings in the all the pending listings. It saves the pending listings to ***all_pending.parquet*** to have a file in GCS that has the latest data, and also saves to GCS in this manner: ```%Y-%m-%d/%H:%M/pending_listings.parquet``` to keep a record of the pending listings each hour. The pending listings that hour are also pushed to the BigQuery table ```pending```. Here is the tree diagram to organize files and connect them correctly.
 
 <img width="650" alt="hourly_pendings_tree" src="https://github.com/joe-bryan/austin-real-estate-de-zoomcamp/assets/101160575/0866a680-a4ae-452d-8d0f-c64df4cfab0b">
 
